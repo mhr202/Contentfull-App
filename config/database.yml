@@ -1,0 +1,23 @@
+default: &default
+  adapter:  postgresql
+  host:     <%= ENV['POSTGRES_HOST'] || 'localhost' %>
+  port:     <%= ENV['POSTGRES_PORT'] || 5432 %>
+  pool:     <%= ENV['POSTGRES_POOL'] || 5 %>
+  encoding: unicode
+  username: <%= ENV['POSTGRES_USERNAME'] || 'postgres' %>
+  password: <%= ENV['POSTGRES_PASSWORD'] || 'postgres' %>
+  sslmode: disable
+
+development:
+  <<: *default
+  database: contentful_app_development
+
+test:
+  <<: *default
+  database: contentful_app_test
+
+production:
+  <<: *default
+  database: contentful_app_production
+  username: contentful_app
+  password: <%= ENV['DATABASE_PASSWORD'] %>
